@@ -8,5 +8,11 @@ def home(request):
     return render(request, 'index.html')
 
 
-
+def header(request):
+    return render(request, 'header.html')
 # Create your views here.
+
+
+@login_required(login_url='pages/')
+def about(request):
+    return render(request, 'flatpages/about.html')

@@ -1,17 +1,16 @@
-
 {% extends 'base.html' %}
 
-<body>
-<p> Главная страница</p>
-<ul>
-    <li>
-        <a href="/about/"> О нас</a>
-    </li>
-
-    <li>
-        <a href="/contact/"> Контакты</a>
-    </li>
-</ul>
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+{% block content %}
 
 
-</body>
+<main class="content-wrapper">
+  <div class="container-fluid">
+    <h1>Информация про кофейни</h1>
+  </div>
+</main>
+
+
+{% endblock content %}

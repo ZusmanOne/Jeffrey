@@ -28,7 +28,8 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
-    path('header/', main.views.header, name='header')
+    path('header/', main.views.header, name='header'),
+    # path('', include('main.urls')),
 
 ]
 

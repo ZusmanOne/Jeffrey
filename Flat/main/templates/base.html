@@ -59,7 +59,7 @@ body {
 }
 
 .nav-item ul.nav-second-level > .nav-item {
-  padding-left: 20px;
+  padding-left: 10px;
 }
 
 @media (min-width: 992px) {
@@ -67,12 +67,13 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 230px;
+    width: 220px;
     height: calc(100vh - 3.5rem);
-    margin-top: 3.5rem;
+    margin-top: 0rem;
     background: #343a40;
     box-sizing: border-box;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
   }
 
   .navbar-expand-lg .sidenav {
@@ -101,15 +102,15 @@ body {
     window.parent.postMessage("resize", "*");
   }
 </script>
-
+{% include 'header.html' %}
 
 </head>
-<body>
-<header>{% block header %}{% endblock %}</header>
-{%block content %}
-{% endblock content %}
 
-</body>
+<body>
+
+
+
+
 
     <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 
@@ -125,75 +126,279 @@ $(document).ready(function () {
 //# sourceURL=pen.js
     </script>
 
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2">
+          <main class="content-wrapper">
+          <nav class="navbar-expand-lg  navbar-dark  ">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
+                <li class="nav-item activ">
+                  <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems0" aria-controls="collapseSubItems0" aria-expanded="false">Поиск локации</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems0" >
+                    <li class="nav-item">
+                      <a class="nav-link" href="/manual_search/">
+                        <span class="nav-link-text">Мануалы по поиску</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/search/">
+                        <span class="nav-link-text">принципы поиска</span>
+                      </a>
+                    </li>
+                  </ul>
 
-  <nav class="navbar-expand-lg navbar-dark  ">
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems1" aria-controls="collapseSubItems1" aria-expanded="false">Планирование и начало ремонта</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems1" >
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">диаграмма ГАНТа</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">разработка дизайн-проекта</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">отделочные материалы</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">барная стойка</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">мебель</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">вывеска</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link nav-link-collapse"   id="hasSubItems2" data-toggle="collapse" data-target="#collapseSubItems2"  aria-controls="collapseSubItems2" aria-expanded="false">Оборудование и аксессуары</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems2"  >
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">оснащение бара и подсобки</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">инвентарь бариста</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link nav-link-collapse"   id="hasSubItems3" data-toggle="collapse" data-target="#collapseSubItems3"  aria-controls="collapseSubItems3" aria-expanded="false">Юридические вопросы</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems3">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">уголок потребителя</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">регистрация юридического лица</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">подключение РКО</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">Роспотребнадзор</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">пожарная безопасность</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">товарный знак</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems4" aria-controls="collapseSubItems4" aria-expanded="false">Закупки</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems4" >
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">навигатор по поставщикам</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">заказ фартуков</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">заказ фирменного мерча и декора</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems5" aria-controls="collapseSubItems5" aria-expanded="false">Персонал</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems5" >
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">подбор бариста</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">чек-листы, процедуры и стандарты бариста</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">должностная инструкция бариста</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">кадровое делопроизводство</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">политика использования мобильных телефонов</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems6" aria-controls="collapseSubItems6" aria-expanded="false">Маркетинг</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems6" >
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">руководство по лояльному маркетингу</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">карта торговой территории</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">полиграфия на открытие</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">сезонное украшение кофеен</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">тз на фотосъемку</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">музыка в кофейни</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">программа лояльности для гостей</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">руководство по ведению инстаграм</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link nav-link-collapse"   id="hasSubItems7" data-toggle="collapse" data-target="#collapseSubItems7"  aria-controls="collapseSubItems7" aria-expanded="false">Производство и бар</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems7"  >
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">ТТК напитки</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">выкладка витрины</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">видео-уроки</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">памятка по уходу за оборудованием</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems8" aria-controls="collapseSubItems8" aria-expanded="false">Кассовое ПО</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems8" >
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">контакты для связи</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">инструкция</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems9" aria-controls="collapseSubItems9" aria-expanded="false">Контроль</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems9" >
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span class="nav-link-text">санитарно-техническая оценка кофейни</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+            </div>
+          </nav>
+          </main>
+        </div>
+        <div class="col-md-9">
+          {% block content %} {% endblock %}
+        </div>
 
 
 
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/about/">О нас</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems2" aria-controls="collapseSubItems2" aria-expanded="false">Item 2</a>
-        <ul class="nav-second-level collapse" id="collapseSubItems2"  >
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 2.1</span>
-            </a>
-                    <a class="nav-link nav-link-collapse" href="#" id="hasSubItems1" data-toggle="collapse" data-target="#collapseSubItems3" aria-controls="collapseSubItems3" aria-expanded="false">Item 3</a>
-        <ul class="nav-second-level collapse" id="collapseSubItems3" >
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 2.1</span>
-            </a>
-          </li>
-        </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/contact">Контакты</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems4" aria-controls="collapseSubItems4" aria-expanded="false">Item 4</a>
-        <ul class="nav-second-level collapse" id="collapseSubItems4" >
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 4.1</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 4.2</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 4.2</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Item 5</a>
-      </li>
-    </ul>
-
-  </div>
-</nav>
-
-<main class="content-wrapper">
-  <div class="container-fluid">
-    <h1>Информация про кофейни</h1>
-  </div>
-</main>
+      </div>
+    </div>
 
 
 
 
-</body></html>
+</body>
+</html>

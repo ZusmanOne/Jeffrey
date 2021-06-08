@@ -168,11 +168,19 @@ CKEDITOR_CONFIGS = {
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
             {'name': 'about', 'items': ['About']},
+            {'name': 'googledocs', 'items': ['Googledocs']},
+            {'name': 'filebrowser', 'items': ['Filebrowser']},
             '/',  # put this to force next toolbar on new line
             {'name': 'yourcustomtools', 'items': [
                 # put the name of your editor.ui.addButton here
                 'Preview',
                 'Maximize',
+                'Youtube',
+                'pastefromword',
+                'pastefromgdocs',
+
+
+
 
             ]},
         ],
@@ -199,7 +207,14 @@ CKEDITOR_CONFIGS = {
             'clipboard',
             'dialog',
             'dialogui',
-            'elementspath'
+            'elementspath',
+            'googledocs',
+            'youtube',
+            'pastefromword',
+            'filebrowser',
+            'pastefromgdocs',
+
+
         ]),
     }
 }

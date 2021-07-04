@@ -17,7 +17,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-
+<link rel="shortcut icon" type="image/x-icon" href="https://lh5.googleusercontent.com/Ejqg8c73Bess-2xgsOBXafShxTjIhOMuztVnOyl-7QrvgzX9GDPoGkZrxQAYQeFSu2azDx0pkj4cwdTPTmx3bt21NLaavE-h-bZCMWBi4VDP2A2nNdef_OpXiqdGtTBzKU2qY65n">
 <style>
 html {
     position: relative;
@@ -40,6 +40,13 @@ body {
 
 .nav-link:hover {
   transition: all 0.4s;
+  color: white !important;
+}
+
+
+
+.nav-link:focus {
+  color: orange !important;
 }
 
 .nav-link-collapse:after {
@@ -70,15 +77,22 @@ body {
     width: 220px;
     height: calc(100vh - 3.5rem);
     margin-top: 0rem;
-    background: #343a40;
+    background: #65abf2;
     box-sizing: border-box;
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(0, 0, 0, 3);
     overflow-y: auto;
+    font-family: Verdana;
+
+
+
   }
 
   .navbar-expand-lg .sidenav {
     flex-direction: column;
+
+
   }
+
 
   .content-wrapper {
     margin-left: 230px;
@@ -129,23 +143,39 @@ $(document).ready(function () {
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-2">
-          <main class="content-wrapper">
-          <nav class="navbar-expand-lg  navbar-dark  ">
+          <main class="content-wrapper" >
+          <nav class="navbar-expand-lg navbar-light "style="color: green;" >
             <div class="collapse navbar-collapse" id="navbarCollapse">
-              <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
-                <li class="nav-item activ">
-                  <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
+              <ul class="navbar-nav mr-auto sidenav" id="navAccordion"  >
+                <li class="nav-item active" >
+                  <a class="nav-link" style="color:black;" href="/">Главная <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems0" aria-controls="collapseSubItems0" aria-expanded="false">Поиск локации</a>
+                  <a class="nav-link nav-link-collapse" style="color:black;" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems00" aria-controls="collapseSubItems00" aria-expanded="false">Джеффрис</a>
+                  <ul class="nav-second-level collapse" id="collapseSubItems00" >
+                    <li class="nav-item">
+                      <a class="nav-link" style="color:black;" href="/jeffreys/" style="color:black;">
+                        <span class="nav-link-text">О Джеффрис</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" style="color:black;" href="/coffee/">
+                        <span class="nav-link-text">О кофе</span>
+                      </a>
+                    </li>
+                  </ul>
+
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-collapse" style="color:black;" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems0" aria-controls="collapseSubItems0" aria-expanded="false">Поиск локации</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems0" >
                     <li class="nav-item">
-                      <a class="nav-link" href="/manual_search/">
+                      <a class="nav-link" style="color:black;" href="/manual_search/">
                         <span class="nav-link-text">Мануалы по поиску</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/search/">
+                      <a class="nav-link" style="color:black;" href="/base_search/">
                         <span class="nav-link-text">принципы поиска</span>
                       </a>
                     </li>
@@ -153,230 +183,230 @@ $(document).ready(function () {
 
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems1" aria-controls="collapseSubItems1" aria-expanded="false">Планирование и начало ремонта</a>
+                  <a class="nav-link nav-link-collapse" style="color:black;" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems1" aria-controls="collapseSubItems1" aria-expanded="false">Планирование и начало ремонта</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems1" >
                     <li class="nav-item">
-                      <a class="nav-link" href="/diagram/">
+                      <a class="nav-link" style="color:black;" href="/diagram/">
                         <span class="nav-link-text">диаграмма ГАНТа</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/design_project/">
+                      <a class="nav-link" style="color:black;" href="/design_project/">
                         <span class="nav-link-text">разработка дизайн-проекта</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/otdelka/">
+                      <a class="nav-link" style="color:black;" href="/otdelka/">
                         <span class="nav-link-text">отделочные материалы</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/bar/">
+                      <a class="nav-link" style="color:black;" href="/bar/">
                         <span class="nav-link-text">барная стойка</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/furniture/">
+                      <a class="nav-link" style="color:black;" href="/furniture/">
                         <span class="nav-link-text">мебель</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/banner/">
+                      <a class="nav-link" style="color:black;" href="/banner/">
                         <span class="nav-link-text">вывеска</span>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link nav-link-collapse"   id="hasSubItems2" data-toggle="collapse" data-target="#collapseSubItems2"  aria-controls="collapseSubItems2" aria-expanded="false">Оборудование и аксессуары</a>
+                  <a href="#" class="nav-link nav-link-collapse" style="color:black;"   id="hasSubItems2" data-toggle="collapse" data-target="#collapseSubItems2"  aria-controls="collapseSubItems2" aria-expanded="false">Оборудование и аксессуары</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems2"  >
                     <li class="nav-item">
-                      <a class="nav-link" href="/osnashenie_bara/">
+                      <a class="nav-link" style="color:black;" href="/osnashenie_bara/">
                         <span class="nav-link-text">оснащение бара и подсобки</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/for_barista/">
+                      <a class="nav-link" style="color:black;" href="/for_barista/">
                         <span class="nav-link-text">инвентарь бариста</span>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link nav-link-collapse"   id="hasSubItems3" data-toggle="collapse" data-target="#collapseSubItems3"  aria-controls="collapseSubItems3" aria-expanded="false">Юридические вопросы</a>
+                  <a href="#" class="nav-link nav-link-collapse"  style="color:black;"  id="hasSubItems3" data-toggle="collapse" data-target="#collapseSubItems3"  aria-controls="collapseSubItems3" aria-expanded="false">Юридические вопросы</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems3">
                     <li class="nav-item">
-                      <a class="nav-link" href="/consumer_corner/">
+                      <a class="nav-link" style="color:black;" href="/consumer_corner/">
                         <span class="nav-link-text">уголок потребителя</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/registration/">
+                      <a class="nav-link" style="color:black;" href="/registration/">
                         <span class="nav-link-text">регистрация юридического лица</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/cashbox/">
+                      <a class="nav-link" style="color:black;" href="/cashbox/">
                         <span class="nav-link-text">подключение РКО</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/rospotreb/">
+                      <a class="nav-link" style="color:black;" href="/rospotreb/">
                         <span class="nav-link-text">Роспотребнадзор</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/fire_protect/">
+                      <a class="nav-link" style="color:black;" href="/fire_protect/">
                         <span class="nav-link-text">пожарная безопасность</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/tovarnyi_znak/">
+                      <a class="nav-link" style="color:black;" href="/tovarnyi_znak/">
                         <span class="nav-link-text">товарный знак</span>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems4" aria-controls="collapseSubItems4" aria-expanded="false">Закупки</a>
+                  <a class="nav-link nav-link-collapse" style="color:black;" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems4" aria-controls="collapseSubItems4" aria-expanded="false">Закупки</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems4" >
                     <li class="nav-item">
-                      <a class="nav-link" href="/postavshik/">
+                      <a class="nav-link" style="color:black;" href="/postavshik/">
                         <span class="nav-link-text">навигатор по поставщикам</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/fartuk/">
+                      <a class="nav-link" style="color:black;" href="/fartuk/">
                         <span class="nav-link-text">заказ фартуков</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/merch_deсor/">
+                      <a class="nav-link" style="color:black;" href="/merch_deсor/">
                         <span class="nav-link-text">заказ фирменного мерча и декора</span>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems5" aria-controls="collapseSubItems5" aria-expanded="false">Персонал</a>
+                  <a class="nav-link nav-link-collapse" style="color:black;" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems5" aria-controls="collapseSubItems5" aria-expanded="false">Персонал</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems5" >
                     <li class="nav-item">
-                      <a class="nav-link" href="/podbor_barista/">
+                      <a class="nav-link" style="color:black;" href="/podbor_barista/">
                         <span class="nav-link-text">подбор бариста</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/check_list/">
+                      <a class="nav-link" style="color:black;" href="/check_list/">
                         <span class="nav-link-text">чек-листы, процедуры и стандарты бариста</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/instruction/">
+                      <a class="nav-link" style="color:black;" href="/instruction/">
                         <span class="nav-link-text">должностная инструкция бариста</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/trudoustroystvo/">
+                      <a class="nav-link" style="color:black;" href="/trudoustroystvo/">
                         <span class="nav-link-text">кадровое делопроизводство</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/mobile/">
+                      <a class="nav-link" style="color:black;" href="/mobile/">
                         <span class="nav-link-text">политика использования мобильных телефонов</span>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems6" aria-controls="collapseSubItems6" aria-expanded="false">Маркетинг</a>
+                  <a class="nav-link nav-link-collapse" style="color:black;" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems6" aria-controls="collapseSubItems6" aria-expanded="false">Маркетинг</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems6" >
                     <li class="nav-item">
-                      <a class="nav-link" href="/marketing/">
+                      <a class="nav-link" style="color:black;" href="/marketing/">
                         <span class="nav-link-text">руководство по лояльному маркетингу</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/torgovaya_karta/">
+                      <a class="nav-link" style="color:black;" href="/torgovaya_karta/">
                         <span class="nav-link-text">карта торговой территории</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/poligrafya/">
+                      <a class="nav-link" style="color:black;" href="/poligrafya/">
                         <span class="nav-link-text">полиграфия на открытие</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/sezonnoe_ukrashenie/">
+                      <a class="nav-link" style="color:black;" href="/sezonnoe_ukrashenie/">
                         <span class="nav-link-text">сезонное украшение кофеен</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/photography/">
+                      <a class="nav-link" style="color:black;" href="/photography/">
                         <span class="nav-link-text">тз на фотосъемку</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/music/">
+                      <a class="nav-link" style="color:black;" href="/music/">
                         <span class="nav-link-text">музыка в кофейни</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/loyalty_program/">
+                      <a class="nav-link" style="color:black;" href="/loyalty_program/">
                         <span class="nav-link-text">программа лояльности для гостей</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/for_instagram/">
+                      <a class="nav-link" style="color:black;" href="/for_instagram/">
                         <span class="nav-link-text">руководство по ведению инстаграм</span>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link nav-link-collapse"   id="hasSubItems7" data-toggle="collapse" data-target="#collapseSubItems7"  aria-controls="collapseSubItems7" aria-expanded="false">Производство и бар</a>
+                  <a href="#" class="nav-link nav-link-collapse" style="color:black;"   id="hasSubItems7" data-toggle="collapse" data-target="#collapseSubItems7"  aria-controls="collapseSubItems7" aria-expanded="false">Производство и бар</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems7"  >
                     <li class="nav-item">
-                      <a class="nav-link" href="/ttk_napitki">
+                      <a class="nav-link" style="color:black;" href="/ttk_napitki">
                         <span class="nav-link-text">ТТК напитки</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/vitrina/">
+                      <a class="nav-link" style="color:black;" href="/vitrina/">
                         <span class="nav-link-text">выкладка витрины</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/video/">
+                      <a class="nav-link" style="color:black;" href="/video/">
                         <span class="nav-link-text">видео-уроки</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/uhod_za_oborudovaniem/">
+                      <a class="nav-link" style="color:black;" href="/uhod_za_oborudovaniem/">
                         <span class="nav-link-text">памятка по уходу за оборудованием</span>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems8" aria-controls="collapseSubItems8" aria-expanded="false">Кассовое ПО</a>
+                  <a class="nav-link nav-link-collapse" style="color:black;" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems8" aria-controls="collapseSubItems8" aria-expanded="false">Кассовое ПО</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems8" >
                     <li class="nav-item">
-                      <a class="nav-link" href="/contact/">
+                      <a class="nav-link" style="color:black;" href="/contact/">
                         <span class="nav-link-text">контакты для связи</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/kassovoe_po/">
+                      <a class="nav-link" style="color:black;" href="/kassovoe_po/">
                         <span class="nav-link-text">инструкция</span>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems9" aria-controls="collapseSubItems9" aria-expanded="false">Контроль</a>
+                  <a class="nav-link nav-link-collapse" style="color:black;" href="#" id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems9" aria-controls="collapseSubItems9" aria-expanded="false">Контроль</a>
                   <ul class="nav-second-level collapse" id="collapseSubItems9" >
                     <li class="nav-item">
-                      <a class="nav-link" href="/stok/">
+                      <a class="nav-link" style="color:black;" href="/stok/">
                         <span class="nav-link-text">санитарно-техническая оценка кофейни</span>
                       </a>
                     </li>

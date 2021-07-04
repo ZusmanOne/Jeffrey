@@ -6,7 +6,7 @@ from django.views.generic import ListView
 
 @login_required(login_url='accounts/login/')
 def home(request):
-    return render(request, 'index.html')
+    return render(request, 'flatpages/index.html')
 
 
 def header(request):
@@ -18,8 +18,9 @@ def header(request):
 def about(request):
     return render(request, 'flatpages/about.html')
 
+
 class Search(ListView):
-    template_name = 'templates/search.html'
+    template_name = 'search.html'
     context_object_name = 'content'
     def get_queryset(self):
         return FlatPage.objects.filter(content__icontains=self.request.GET.get('s'))

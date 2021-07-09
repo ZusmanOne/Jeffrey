@@ -13,14 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
 import main.views
-from django.conf.urls import url
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
-
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +30,10 @@ urlpatterns = [
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
     path('header/', main.views.header, name='header'),
     path('', include('main.urls')),
-
+    path('news/', include('news.urls'))
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)  # что бы загруженные файлы
+    # можно было просматривать на сайте в режиме отладки, создается этот маршрут с помощью ф-ии static()
 

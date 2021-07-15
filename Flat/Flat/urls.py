@@ -21,6 +21,7 @@ import main.views
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
+import news.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,7 +31,8 @@ urlpatterns = [
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
     path('header/', main.views.header, name='header'),
     path('', include('main.urls')),
-    path('news/', include('news.urls'))
+    path('news/', include('news.urls')),
+
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load _simpletag %}
+{% block content %}
+<title>Новости</title>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-9">
+
+            <div class="card mb-3">
+                <div class="card-header">
+                  Категория: <a href="{% url 'category' single_news.category.pk %}">{{ single_news.category }}</a>
+                </div>
+                {% if single_news.photo %}
+                <img src="{{ single_news.photo.url }}" alt="" width="350" class="mr-3">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ single_news.title }}</h5>
+                    <p class="card-text">{{ single_news.content }}</p>
+                    <a href="{% url 'update_news' single_news.pk %}" class="btn btn-primary">Обновить</a>
+
+                </div>
+                <div class="card-footer text-muted">
+                    {{ single_news.create_date}}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="list-group">
+                {% my_tag as list_categories %}
+                {% for ite in list_categories %}
+                <a href="{{ ite.get_absolute_url }}" class="list-group-item list-group-item-action">{{ ite.title_category }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

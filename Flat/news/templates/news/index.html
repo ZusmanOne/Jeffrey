@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load _simpletag %}
+{% block content %}
+<title>Новости</title>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-9">
+            {% for item in news %}
+            <div class="card mb-3">
+                <div class="card-header">
+                  Категория: <a href="{% url 'category' item.category.pk %}">{{ item.category }}</a>
+                </div>
+                {% if item.photo %}
+                <img src="{{ item.photo.url }}" alt="" width="350" class="mr-3">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:50 }}</p>
+                    <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Читать далее...</a>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ item.create_date}}
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+        <div class="col-md-3">
+            <div class="list-group">
+                {% my_tag as list_categories %}
+                {% for ite in list_categories %}
+                <a href="{{ ite.get_absolute_url }}" class="list-group-item list-group-item-action">{{ ite.title_category }}</a>
+                {% endfor %}
+            </div>
+            <a href="{% url 'add_news' %}" class="btn btn-primary btn-lg">Добавить новость...</a>
+            <a href="{% url 'add_category' %}" class="btn btn-primary btn-lg">Добавить категорию</a>
+
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

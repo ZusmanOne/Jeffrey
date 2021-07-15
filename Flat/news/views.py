@@ -21,6 +21,9 @@ class NewsList(ListView): # отображение ленты новостей �
         context['my_data'] = "Новостная лента"
         return context
 
+    def get_queryset(self):
+        return News.objects.filter(published=True).select_related('category')
+
 
 # def category(request, category_id):
 #     category = Category.objects.all()
@@ -40,7 +43,9 @@ class NewsCategory(ListView): # показывает новости по кат�
         return context
 
     def get_queryset(self):
-        category_news = News.objects.filter(category_id = self.kwargs['category_id'])
+        category_news = News.objects.filter(category_id = self.kwargs['category_id']).select_related('category')
+        '''метод select_related применяется для того что бы сократить количество sql запросов к связаной табоицу в модели News
+        select_related применяется для Foreign Key для ManytpMany применятеся prefeatch'''
         return category_news
 
 

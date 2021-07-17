@@ -3,6 +3,9 @@ from .models import *
 from django.core.exceptions import ValidationError
 import re
 from django.views.generic import ListView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 
 class AddNews(forms.Form):
     title = forms.CharField(max_length=150, label='Название',
@@ -39,4 +42,17 @@ class AddCategory(forms.ModelForm):
 #         fields = ['title']
 #         widgets = {
 #             'class':forms.Select(attrs={'class':'form-control'})
-#                    }
+#
+#
+
+# кастомная форма для регистарции пользователя
+class UserRegistrForm(UserCreationForm):
+    username = forms.CharField(label='Введитя имя пользователя', widget=forms.TextInput(attrs={'class':'form-control'}))
+    password1 = forms.CharField(label='Введите пароль', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password2 = forms.CharField(label='Подвердите пароль', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+
+
+# ФОРМА ДЛЯ О ПРАВКИ EMAIL ПИСЬМА
+class SendForm(forms.Form):
+    subject = forms.CharField(max_length=150)
+    message = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))

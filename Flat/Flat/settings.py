@@ -239,5 +239,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [ # для django debug toolbar
 
     '127.0.0.1',
-
 ]
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "bigmama93@mail.ru"
+EMAIL_HOST_PASSWORD = "1208091Alisa"
+EMAIL_USE_SSL = True

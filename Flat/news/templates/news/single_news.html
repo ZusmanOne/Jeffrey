@@ -10,6 +10,19 @@
                 <div class="card-header">
                   Категория: <a href="{% url 'category' single_news.category.pk %}">{{ single_news.category }}</a>
                 </div>
+                <br>
+                {% if single_news.tag.exists %}
+                <span>
+                    Теги:
+                    {% for tag in single_news.tag.all %}
+                    <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                    {% endfor %}
+                </span>
+                {% endif %}
+                <br>
+                <div class="card-header">
+                  Количество просмотров: {{ single_news.visits }}
+                </div>
                 {% if single_news.photo %}
                 <img src="{{ single_news.photo.url }}" alt="" width="350" class="mr-3">
                 {% endif %}

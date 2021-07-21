@@ -7,13 +7,18 @@
 from news.models import Category
 from django import template
 register = template.Library()
-
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 @register.simple_tag(name='my_tag') #здесь используется простой тег
 def category_object():
     return Category.objects.all()
 
+
 @register.inclusion_tag('news/list_category_tag.html') # здесь создается тег сразу с собственным шаблоном
 def list_category():
-    context = Category.objects.all()
-    return {'context': context}
+    categories = cache.get('categories')
+    if not categories:
+        categories = Category.objects.all()
+        cache.set('categories', categories, 20)
+    return {'categories': categories}

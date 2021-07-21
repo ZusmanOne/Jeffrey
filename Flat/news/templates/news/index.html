@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% load _simpletag %}
+{% load cache %}
+{% cache 10 news %}
 {% block content %}
+
 <title>Новости</title>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-9">
-            {% for item in news %}
+            {% for item in page_obj %}
             <div class="card mb-3">
                 <div class="card-header">
                   Категория: <a href="{% url 'category' item.category.pk %}">{{ item.category }}</a>
@@ -26,12 +29,17 @@
             {% endfor %}
 
         </div>
-        <div class="col-md-3">
+
+        <div class="tags">
+            <h2 class="sidebar-title">Tags</h2>
+            {% for tag in tag_list %}
+            <p><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></p>
+            {% endfor %}
+        </div>
+
+
             <div class="list-group">
-                {% my_tag as list_categories %}
-                {% for ite in list_categories %}
-                <a href="{{ ite.get_absolute_url }}" class="list-group-item list-group-item-action">{{ ite.title_category }}</a>
-                {% endfor %}
+                {% list_category %}
             </div>
             <a href="{% url 'add_news' %}" class="btn btn-primary btn-lg">Добавить новость...</a>
             <a href="{% url 'add_category' %}" class="btn btn-primary btn-lg">Добавить категорию</a>
@@ -40,6 +48,35 @@
         </div>
 
 
+        <nav aria-label="...">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{page_obj.previous_page_number}}" >Previous</a>
+                </li>
+                {% endif %}
+                {%  for p in page_obj.paginator.page_range %}
+                {% if page_obj.number == p %}
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{p}}">{{p}} <span class="sr-only">(current)</span></a>
+                </li>
+                {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{p}}">{{p}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+
     </div>
 </div>
+
 {% endblock %}
+{% endcache %}

@@ -27,11 +27,8 @@
         </div>
         <div class="col-md-3">
             <div class="list-group">
-                {% my_tag as categories %}
-                {% for item in categories %}
-                <a href="{{ item.get_absolute_url}}" class="list-group-item list-group-item-action">{{ item.title_category }}</a>
 
-                {% endfor %}
+                {%  list_category%}
 
                 <a href="{% url 'delete-category' category.pk %}" class="btn btn-primary">Удалить категорию</a>
 

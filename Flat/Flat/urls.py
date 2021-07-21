@@ -22,6 +22,8 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
 import news.views
+from django.views.decorators.cache import cache_page
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,11 +38,16 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    import debug_toolbar
-
-    urlpatterns = [
-                        path('__debug__/', include(debug_toolbar.urls)), # добавили модуль django debug toolbar
-                    ] + urlpatterns
+    # import debug_toolbar
+    #
+    # urlpatterns = [
+    #                     path('__debug__/', include(debug_toolbar.urls)), # добавили модуль django debug toolbar
+    #                 ] + urlpatterns
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)  # что бы загруженные файлы
     # можно было просматривать на сайте в режиме отладки, создается этот маршрут с помощью ф-ии static()
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+    path('__debug__/', include(debug_toolbar.urls)),
+    ]

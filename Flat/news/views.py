@@ -6,13 +6,23 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
+from django.views.decorators.cache import cache_page
+from django.core.paginator import Paginator
+from django.db.models import F
 
 
-# def index(request):
-#     news_objects = News.objects.all()
-#     category_list = Category.objects.all()
-#     context = {'news': news_objects, 'title':'hello world', 'category_list': category_list}
-#     return render(request, 'news/index.html', context)
+
+
+def index(request): #так же здесь реалтзовано пагинация
+    news_objects = News.objects.all()
+    category_list = Category.objects.all()
+    tag_list = Tag.objects.all()
+    paginator = Paginator(news_objects, 3)
+    page_number = request.GET.get('page', 1)
+    page_objects = paginator.get_page(page_number)
+    # page_range = paginator.get_elided_page_range(on_ends = 2 )
+    context = {'news': news_objects, 'title':'hello world','tag_list':tag_list, 'category_list': category_list, 'page_obj': page_objects}
+    return render(request, 'news/index.html', context)
 
 
 class NewsList(LoginRequiredMixin, ListView):  # отображение ленты новостей чрез CBV
@@ -26,7 +36,7 @@ class NewsList(LoginRequiredMixin, ListView):  # отображение лент
         context['my_data'] = "Новостная лента"
         return context
 
-
+#
 # def category(request, category_id):
 #     category = Category.objects.all()
 #     news_category = News.objects.filter(category_id = category_id)
@@ -51,9 +61,27 @@ class NewsCategory(LoginRequiredMixin, ListView):  # показывает нов
         return category_news
 
 
+# @cache_page(30)  # кэширование для фунцкий
 def news_object(request, news_id):
     single_news = get_object_or_404(News, pk=news_id)
+    single_news.visits += 1
+    single_news.save()
     return render(request, 'news/single_news.html', {'single_news': single_news})
+
+
+class TagNews(ListView): # будет отображать теги
+    model = News
+    template_name = 'news/news_tag.html'
+    context_object_name = 'news_tag'
+
+    def get_queryset(self):
+        tag_post = News.objects.filter(tag__slug= self.kwargs['slug'])
+        return tag_post
+
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['tag'] = Tag.objects.all()
+    #     return context
 
 
 def add_news(request):  # контроллер для не связанной формы
@@ -87,7 +115,7 @@ def add_category(request):  # контроллер для связанной ф�
 #     fields = '__all__'
 #     template_name = 'news/add_news.html'
 # #
-# class NewsDetal(DetailView): #отображение отдельной новости на основе CBV
+# class NewsDetail(DetailView): #отображение отдельной новости на основе CBV
 #     model = News
 #     template_name = 'news/single_news.html'
 #     context_object_name = 'single_news'

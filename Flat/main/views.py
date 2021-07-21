@@ -14,6 +14,10 @@ def header(request):
 # Create your views here.
 
 
+# def get_text(request):
+#     context = 'hello world'
+#     return render(request, 'flatpages/index.html', {'context':context})
+
 @login_required(login_url='pages/')
 def about(request):
     return render(request, 'flatpages/about.html')

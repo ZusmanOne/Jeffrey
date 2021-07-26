@@ -1,7 +1,14 @@
 <!--здесь создаться шаблон для inslusion_tag, а потом в любой шаблон вставляешь имя тега и данный шаблон вставиться
 в страницу-->
-<div class="list-group">
-    {% for item in categories %}
-    <a href="{% url 'category' item.pk %}" class="list-group-item list-group-item-action">{{ item.title_category }}</a>
-    {% endfor %}
-</div>
+
+
+
+<h3 class="sidebar-heading">Категории</h3>
+   {% for item in categories %}
+<ul class="categories">
+
+<li><a href="index.html#">{{item.title_category}} <span>(6)</span></a></li>
+
+
+</ul>
+     {% endfor %}

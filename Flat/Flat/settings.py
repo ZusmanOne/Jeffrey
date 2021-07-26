@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,7 +76,7 @@ ROOT_URLCONF = 'Flat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Flat/templates'),
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -156,7 +156,7 @@ DEBUG_TOOLBAR_CONFIG = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "main/static", 'news/static'),
+    os.path.join(BASE_DIR, 'news/static'),
 ]
 
 
@@ -260,9 +260,9 @@ EMAIL_HOST_PASSWORD = "1208091Alisa"
 EMAIL_USE_SSL = True
 
 # кэшированиек
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'caches'),
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         'LOCATION': os.path.join(BASE_DIR, 'caches'),
+#     }
+# }

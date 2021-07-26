@@ -5,10 +5,12 @@ from django.views.generic import ListView, DeleteView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator
 from django.db.models import F
+from django.dispatch import receiver
+from django.db.models.signals import pre_save,post_save
 
 
 
@@ -66,7 +68,19 @@ def news_object(request, news_id):
     single_news = get_object_or_404(News, pk=news_id)
     single_news.visits += 1
     single_news.save()
-    return render(request, 'news/single_news.html', {'single_news': single_news})
+    comment_all = Comment.objects.filter(post=news_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False) # озгначает что пока модель не сохранять
+            form.user = request.user #заполняется поле юзер из реквеста
+            form.post = single_news # комментарий отобразится у той статьи которая открыта на сайте
+            form.save()
+            return redirect(news_object, news_id)
+    else:
+        form = CommentForm()
+    return render(request, 'news/single_news.html',
+                  {'single_news': single_news, 'form': form, 'comment_all':comment_all})
 
 
 class TagNews(ListView): # будет отображать теги
@@ -97,17 +111,23 @@ def add_news(request):  # контроллер для не связанной ф
     return render(request, 'news/add_news.html', {'form': form})
 
 
-def add_category(request):  # контроллер для связанной формы
-    if request.method == 'POST':
-        form = AddCategory(request.POST)
-        if form.is_valid():
-            categories = form.save()
-            return redirect('news')
+# def add_category(request):  # контроллер для связанной формы
+#     if request.method == 'POST':
+#         form = AddCategory(request.POST)
+#         if form.is_valid():
+#             categories = form.save()
+#             return redirect('news')
+#
+#     else:
+#         form = AddCategory()
+#
+#     return render(request, 'news/add_category.html', {'form': form})
 
-    else:
-        form = AddCategory()
-
-    return render(request, 'news/add_category.html', {'form': form})
+class CategoryCreate(CreateView):
+    model = Category
+    form_class = AddCategory
+    template_name = 'news/add_category.html'
+    success_url = reverse_lazy('category')
 
 
 # class NewsCreate(CreateView): создание новости на основе CBV
@@ -149,12 +169,14 @@ def register(request):
 
 
 # контроллер для отправки эл. письма
-def send_message(request):
+def send_message(request): #данная функция отправляет форму с электронным письмом
     if request.method == "POST":
         form = SendForm(request.POST)
         if form.is_valid():
+            recipient_list = Subscribe.objects.all()
             mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['message'], 'bigmama93@mail.ru',
-                      ['nikzubkov93@mail.ru', 'zusmanone1@gmail.com'],  fail_silently=False)
+                      recipient_list,  fail_silently=False)
+
             if mail:
                 messages.success(request, 'письмо отправлено')
                 return redirect('send-mail')
@@ -163,5 +185,32 @@ def send_message(request):
                 return redirect('send-mail')
     else:
         form = SendForm()
+
     return render(request, 'news/send_mail.html', {'form': form})
+
+
+def send_mail_post(request):
+    subject = 'Новости Jeffreys'
+    from_email = 'bigmama93@mail.ru'
+    to = Subscribe.objects.all()
+    text_content = 'У нас для вас новости'
+    msg = EmailMultiAlternatives(subject,text_content,from_email, to)
+    msg.send()
+
+
+@receiver(post_save, sender = News) # применяется сигнал по которому после добавления поста будет отправлено
+# письмо из ф-ии send+mail
+def create_post(instance,  created, **kwargs):
+    if created:
+        # News.objects.get_or_create(pk=instance.pk) эта строчка выполнится если увидит что  создался еще раз
+        # объект класса News (тоесть она  попытается создать еще раз этот объект)
+        send_mail_post(instance) # здесь выполнится функция по отправке почты если был создан объект класса News
+        print('почта отправлена')
+
+
+class SubscribeView(CreateView):
+    model = Subscribe
+    form_class = SubscribeForm
+    template_name = 'news/index.html' #выяснить как выводить ошибку в случае одинаковой почты
+    success_url = reverse_lazy('news')
 

@@ -1,7 +1,82 @@
 {% extends 'base.html' %}
 {% load _simpletag %}
+
 {% block content %}
 <title>Новости</title>
+
+<div id="colorlib-main">
+<section class="ftco-section ftco-no-pt ftco-no-pb">
+<div class="container">
+<div class="row d-flex">
+<div class="col-lg-8 px-md-5 py-5">
+
+<h1 class="mb-3"> <strong>{{single_news.title}} </strong></h1>
+    {% if single_news.photo %}
+<p>
+<img src="{{ single_news.photo.url }}" alt="" class="img-fluid" data-pagespeed-url-hash="3951709250" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+</p>
+    {% endif %}
+     <p class="card-text">{{ single_news.content }}</p>
+<div class="tag-widget post-tag-container mb-5 mt-5">
+<div class="tagcloud">
+    {% for tag in single_news.tag.all %}
+<a href="{{tag.get_absolute_url}}" class="tag-cloud-link">{{tag.title}}</a>
+    {% endfor %}
+</div>
+</div>
+    {% comment %}
+<div class="about-author d-flex p-4 bg-light">
+<div class="bio mr-5">
+<img src="images/xperson_1.jpg.pagespeed.ic.P4pHl6glbj.jpg" alt="Image placeholder" class="img-fluid mb-4" data-pagespeed-url-hash="2239758388" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+</div>
+<div class="desc">
+<h3>George Washington</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+</div>
+</div> <!-- тэг для автора поста-->
+     {% endcomment %}
+<div class="pt-5 mt-5">
+<h3 class="mb-5 font-weight-bold">6 Comments</h3>
+    {% for comment in comment_all %}
+<ul class="comment-list">
+<li class="comment">
+<div class="vcard bio">
+    {% comment %}
+<img src="images/xperson_1.jpg.pagespeed.ic.P4pHl6glbj.jpg" alt="Image placeholder" data-pagespeed-url-hash="2239758388" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+     {% endcomment %}
+</div>
+<div class="comment-body">
+<h3>{{comment.user}}</h3>
+<div class="meta">{{comment.create_comment}}</div>
+<p>{{comment.body }}</p>
+        {% comment %}
+<p><a href="single.html#" class="reply">Reply</a></p>
+         {% endcomment %}
+</div>
+</li>
+</ul>
+    {% endfor %}
+<form action="#" method="post" class="p-3 p-md-5 bg-light">
+{% csrf_token %}
+    {{ form.as_p }}
+
+<input type="submit" value="Отправить" class="btn py-3 px-4 btn-primary">
+
+</form>
+</div>
+</div>  <!-- тэг для раздела комментариев-->
+
+
+</div>
+{% list_side %}
+</div>
+</div>
+</section>
+</div>
+
+
+
+{% comment %}
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-9">
@@ -49,4 +124,5 @@
 
     </div>
 </div>
+{% endcomment %}
 {% endblock %}

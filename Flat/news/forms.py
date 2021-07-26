@@ -15,7 +15,9 @@ class AddNews(forms.Form):
         "rows": 5
     }))
     published = forms.BooleanField(label='Опубликовано?', initial=True)
-    category = forms.ModelChoiceField(empty_label='Выберите категорию', label='Категория', queryset=Category.objects.all(), widget=forms.Select(attrs={"class": "form-control"}))
+    category = forms.ModelChoiceField(empty_label='Выберите категорию', label='Категория',
+                                      queryset=Category.objects.all(),
+                                      widget=forms.Select(attrs={"class": "form-control"}))
 
 
 class AddCategory(forms.ModelForm):
@@ -23,9 +25,8 @@ class AddCategory(forms.ModelForm):
         model = Category
         fields = ['title_category']
         widgets = {
-            'title_category': forms.TextInput(attrs={'class':'form-control'})
+            'title_category': forms.TextInput(attrs={'class': 'form-control'})
         }
-
 
     def clean_title_category(self):
         my_title = self.cleaned_data['title_category']
@@ -47,12 +48,37 @@ class AddCategory(forms.ModelForm):
 
 # кастомная форма для регистарции пользователя
 class UserRegistrForm(UserCreationForm):
-    username = forms.CharField(label='Введитя имя пользователя', widget=forms.TextInput(attrs={'class':'form-control'}))
-    password1 = forms.CharField(label='Введите пароль', widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    password2 = forms.CharField(label='Подвердите пароль', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    username = forms.CharField(label='Введитя имя пользователя',
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label='Введите пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label='Подвердите пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
 # ФОРМА ДЛЯ О ПРАВКИ EMAIL ПИСЬМА
 class SendForm(forms.Form):
     subject = forms.CharField(max_length=150)
-    message = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+
+
+class SubscribeForm(forms.ModelForm):
+    class Meta:
+        model = Subscribe
+        fields = ['email']
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder':'Email Address'})
+        }
+
+    def clean_email(self):
+        cleaned_mail = self.cleaned_data['email']
+        all_mail = Subscribe.objects.all()
+        for i in all_mail:
+            if i.email == cleaned_mail:
+                raise ValidationError('Такая категория уже существует')
+        return cleaned_mail
+
+
+class CommentForm(forms.ModelForm): # связнная форма для написания комментов
+    class Meta:
+        model = Comment
+        fields = ('body',)
+        widgets = {'body':forms.TextInput(attrs={'class':'form-control'})}

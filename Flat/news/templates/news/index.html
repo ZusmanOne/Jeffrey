@@ -1,54 +1,45 @@
 {% extends 'base.html' %}
 {% load _simpletag %}
+
 {% load cache %}
 {% cache 10 news %}
 {% block content %}
 
-<title>Новости</title>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-9">
-            {% for item in page_obj %}
-            <div class="card mb-3">
-                <div class="card-header">
-                  Категория: <a href="{% url 'category' item.category.pk %}">{{ item.category }}</a>
-                </div>
-                {% if item.photo %}
-                <img src="{{ item.photo.url }}" alt="" width="350" class="mr-3">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.title }}</h5>
-                    <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:50 }}</p>
-                    <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Читать далее...</a>
-                </div>
-                <div class="card-footer text-muted">
-                    {{ item.create_date}}
-                </div>
+<a href="index.html#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 
-            </div>
-            {% endfor %}
+<div id="colorlib-main">
+<section class="ftco-section ftco-no-pt ftco-no-pb">
+<div class="container">
+<div class="row d-flex">
+<div class="col-xl-8 py-5 px-md-5">
+<div class="row pt-md-4">
+    {% for item in page_obj %}
 
-        </div>
+<div class="col-md-12">
+<div class="blog-entry ftco-animate d-md-flex">
+    {% if item.photo %}
+<a href="{{ item.get_absolute_url }}" class="img img-2" style="background-image:url({{item.photo.url}})"></a>
+    {% endif %}
+<div class="text text-2 pl-md-4">
 
-        <div class="tags">
-            <h2 class="sidebar-title">Tags</h2>
-            {% for tag in tag_list %}
-            <p><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></p>
-            {% endfor %}
-        </div>
+<h3 class="mb-2"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></h3>
+<div class="meta-wrap">
+<p class="meta">
+<span><i class="icon-calendar mr-2"></i>{{ item.create_date}}</span>
+<span><a href="{% url 'category' item.category.pk %}"><i class="icon-folder-o mr-2"></i>{{item.category}}</a></span>
+<span><i class="icon-comment2 mr-2"></i>5 Comment</span>
+</p>
+</div>
+<p class="mb-4">{{item.content|truncatewords:50}}</p>
+<p><a href="{{item.get_absolute_url}}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+       <hr>
+</div>
+</div>
+</div> <!--новость-->
 
-
-            <div class="list-group">
-                {% list_category %}
-            </div>
-            <a href="{% url 'add_news' %}" class="btn btn-primary btn-lg">Добавить новость...</a>
-            <a href="{% url 'add_category' %}" class="btn btn-primary btn-lg">Добавить категорию</a>
-
-
-        </div>
-
-
-        <nav aria-label="...">
+    {% endfor %}
+</div>
+    <nav aria-label="...">
             <ul class="pagination">
                 {% if page_obj.has_previous %}
                 <li class="page-item">
@@ -73,10 +64,11 @@
                 {% endif %}
             </ul>
         </nav>
-
-
-    </div>
 </div>
-
+{% list_side %}
+</div>
+</div>
+</section>
+</div>
 {% endblock %}
 {% endcache %}

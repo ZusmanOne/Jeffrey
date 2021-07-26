@@ -2,39 +2,35 @@
 {% load _simpletag %}
 
 {% block content %}
-<title>{{category }}</title>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-9">
-            {% for item in my_new %}
-            <div class="card mb-3">
-                <div class="card-header">
-                    Категория: <a href="{% url 'category' item.category.pk %}" > {{ item.category }}</a>
-                </div>
-                {% if item.photo %}
-                <img src="{{ item.photo.url }}" alt="" width="350" class="mr-3">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.title }}</h5>
-                    <p class="card-text">{{ item.content|truncatewords:50 }}</p>
-                    <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Читать далее...</a>
-                </div>
-                <div class="card-footer text-muted">
-                    {{ item.create_date}}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="col-md-3">
-            <div class="list-group">
-
-                {%  list_category%}
-
-                <a href="{% url 'delete-category' category.pk %}" class="btn btn-primary">Удалить категорию</a>
-
-            </div>
-
-        </div>
+{%for item in my_new %}
+<div id="colorlib-main">
+<div class="container">
+    <div class="row d-flex">
+<div class="col-xl-8 py-5 px-md-5">
+<div class="col-md-12">
+<div class="blog-entry ftco-animate d-md-flex fadeInUp ftco-animated">
+    {% if item.photo %}
+<a href="single.html" class="img img-2" style="background-image:url('{{item.photo.url}}')"></a>
+    {% endif %}
+<div class="text text-2 pl-md-4">
+<h3 class="mb-2"><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
+<div class="meta-wrap">
+<p class="meta">
+<span>Dec 14, 2018</span>
+<span><a href="single.html">{{item.category}}</a></span>
+<span>5 Comment</span>
+</p>
+</div>
+<p class="mb-4">{{item.content| truncatewords:50}}.</p>
+<p><a href="{{item.get_absolute_url }}" class="btn-custom">Читать далее <span class="ion-ios-arrow-forward"></span></a></p>
+    <hr>
+</div>
+</div>
+</div>
+</div>
+</div>
     </div>
 </div>
+
+{% endfor %}
 {% endblock %}

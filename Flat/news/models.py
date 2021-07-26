@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
+
+
 
 
 class News(models.Model):
@@ -59,6 +62,25 @@ class Tag(models.Model):
         ordering = ['title']
 
 
+class Subscribe(models.Model):
+    email = models.EmailField(help_text='эл.почта')
+    date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.email
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    post = models.ForeignKey(News, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Новость')
+    body = models.TextField(help_text='напишите комментарий', verbose_name='Текст комментария')
+    create_comment = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{}".format(self.user)
+
+    class Meta:
+        verbose_name = 'Коментарий'
+        verbose_name_plural = "Коментарии"
 
 # Create your models here.

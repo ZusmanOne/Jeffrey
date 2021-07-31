@@ -11,11 +11,10 @@ from django.core.paginator import Paginator
 from django.db.models import F
 from django.dispatch import receiver
 from django.db.models.signals import pre_save,post_save
+from django.http import HttpResponse
 
 
-
-
-def index(request): #так же здесь реалтзовано пагинация
+def index(request):  # так же здесь реалтзовано пагинация
     news_objects = News.objects.all()
     category_list = Category.objects.all()
     tag_list = Tag.objects.all()
@@ -23,7 +22,20 @@ def index(request): #так же здесь реалтзовано пагина�
     page_number = request.GET.get('page', 1)
     page_objects = paginator.get_page(page_number)
     # page_range = paginator.get_elided_page_range(on_ends = 2 )
-    context = {'news': news_objects, 'title':'hello world','tag_list':tag_list, 'category_list': category_list, 'page_obj': page_objects}
+    """
+    далее будет реалтзована форма для полписки на расслыки
+    """
+    if request.method == "POST":
+        form = SubscribeForm(request.POST)
+        if form.is_valid():
+            subscribe = form.save()
+            return redirect('news')
+    else:
+        form = SubscribeForm()
+    context = {
+                'news': news_objects, 'title':'hello world', 'tag_list':tag_list, 'category_list': category_list,
+               'page_obj': page_objects, 'form':form
+    }
     return render(request, 'news/index.html', context)
 
 
@@ -49,6 +61,7 @@ class NewsCategory(LoginRequiredMixin, ListView):  # показывает нов
     model = News
     template_name = 'news/category.html'
     context_object_name = 'my_new'
+    paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -111,23 +124,23 @@ def add_news(request):  # контроллер для не связанной ф
     return render(request, 'news/add_news.html', {'form': form})
 
 
-# def add_category(request):  # контроллер для связанной формы
-#     if request.method == 'POST':
-#         form = AddCategory(request.POST)
-#         if form.is_valid():
-#             categories = form.save()
-#             return redirect('news')
-#
-#     else:
-#         form = AddCategory()
-#
-#     return render(request, 'news/add_category.html', {'form': form})
+def add_category(request):  # контроллер для связанной формы
+    if request.method == 'POST':
+        form = AddCategory(request.POST)
+        if form.is_valid():
+            categories = form.save()
+            return redirect('news')
 
-class CategoryCreate(CreateView):
-    model = Category
-    form_class = AddCategory
-    template_name = 'news/add_category.html'
-    success_url = reverse_lazy('category')
+    else:
+        form = AddCategory()
+
+    return render(request, 'news/add_category.html', {'form': form})
+
+# class CategoryCreate(CreateView):
+#     model = Category
+#     form_class = AddCategory
+#     template_name = 'news/add_category.html'
+#     success_url = reverse_lazy('category')
 
 
 # class NewsCreate(CreateView): создание новости на основе CBV
@@ -208,9 +221,9 @@ def create_post(instance,  created, **kwargs):
         print('почта отправлена')
 
 
-class SubscribeView(CreateView):
-    model = Subscribe
-    form_class = SubscribeForm
-    template_name = 'news/index.html' #выяснить как выводить ошибку в случае одинаковой почты
-    success_url = reverse_lazy('news')
+# class SubscribeView(CreateView):
+#     model = Subscribe
+#     form_class = SubscribeForm
+#     template_name = 'news/index.html' #выяснить как выводить ошибку в случае одинаковой почты
+#     success_url = reverse_lazy('news')
 

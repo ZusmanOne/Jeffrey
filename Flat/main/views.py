@@ -3,6 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib.flatpages.models import FlatPage
 from django.views.generic import ListView
+from news.models import *
+from django.db.models import Q
+from itertools import chain
+
 
 @login_required(login_url='accounts/login/')
 def home(request):
@@ -28,7 +32,10 @@ class Search(ListView):
     context_object_name = 'content'
     # return render(request, 'search.html')
     def get_queryset(self):
-        return FlatPage.objects.filter(content__icontains=self.request.GET.get('s'))
+        search_flat = FlatPage.objects.filter(content__icontains=self.request.GET.get('s'))
+        search_news = News.objects.filter(content__icontains=self.request.GET.get('s'))
+        search_list = list(chain(search_flat,search_news))
+        return (search_list)
     #
     # def get_context_data(self, *, object_list=None, **kwargs):
     #     context = super().get_context_data(**kwargs)

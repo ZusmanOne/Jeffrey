@@ -73,7 +73,8 @@ class SubscribeForm(forms.ModelForm):
         all_mail = Subscribe.objects.all()
         for i in all_mail:
             if i.email == cleaned_mail:
-                raise ValidationError('Такая категория уже существует')
+                print('ПОЧТА УЖЕ ЕСТЬ!!!!!!!!!!!!')
+                raise ValidationError('Такая почта уже существует')
         return cleaned_mail
 
 

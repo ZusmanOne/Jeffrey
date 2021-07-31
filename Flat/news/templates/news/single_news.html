@@ -36,7 +36,9 @@
 </div> <!-- тэг для автора поста-->
      {% endcomment %}
 <div class="pt-5 mt-5">
-<h3 class="mb-5 font-weight-bold">6 Comments</h3>
+
+<h3 class="mb-5 font-weight-bold"> Коментариев: {{comment_all.count}}</h3>
+
     {% for comment in comment_all %}
 <ul class="comment-list">
 <li class="comment">
@@ -56,19 +58,22 @@
 </li>
 </ul>
     {% endfor %}
+    {% if user.is_active %}
 <form action="#" method="post" class="p-3 p-md-5 bg-light">
 {% csrf_token %}
     {{ form.as_p }}
-
 <input type="submit" value="Отправить" class="btn py-3 px-4 btn-primary">
+    {% else %}
+    <p>Авторизуйтесь что бы оставлять комментарии</a></p>
+    {% endif %}
 
 </form>
 </div>
 </div>  <!-- тэг для раздела комментариев-->
-
+{% list_side %}
 
 </div>
-{% list_side %}
+
 </div>
 </div>
 </section>

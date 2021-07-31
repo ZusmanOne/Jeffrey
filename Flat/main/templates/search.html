@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for i in content %}
-<h3><a href="{{ i.url }}">{{ i.title }}</a></h3>
+
+<div id="colorlib-main">
+<div class="container">
+    {% for i in content %}
+    <ul>
+        <li> <h3><a href="{{ i.get_absolute_url }}">{{ i.title }}</a></h3></li>
+    </ul>
 {% empty %}
 <h2>По вашему запросу ничего не найдено...</h2>
 {% endfor %}
+</div>
+</div>
+
 {% endblock %}

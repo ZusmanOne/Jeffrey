@@ -6,14 +6,14 @@ from django.views.decorators.cache import cache_page
 urlpatterns = [
 
     path('', index, name='news'),
-    path('subscribe/', SubscribeView.as_view(), name = 'subscribe'), #контр-лер не рааботает по корневому
+    # path('subscribe/', SubscribeView.as_view(), name = 'subscribe'), #контр-лер не рааботает по корневому
     # маршруту нужно выяснить почему
     # path('', NewsList.as_view(), name = 'news'),
     # path('category/<int:category_id>/', category, name='category'),
     path('category/<int:category_id>/', NewsCategory.as_view(), name = 'category'),
     path('<int:news_id>/', news_object, name='news_object'),
     path('add_news/', add_news, name='add_news'),
-    path('add_category/', CategoryCreate.as_view(), name='add_category'),
+    path('add_category/', add_category, name='add_category'),
     path('category/<int:pk>/delete/', CategoryDelete.as_view(), name='delete-category'),
     path('<int:pk>/update/', NewsUpdate.as_view(), name='update_news'),
     path('registration/', register, name='register'),

@@ -5,70 +5,73 @@
 {% cache 10 news %}
 {% block content %}
 
-<a href="index.html#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
 
 <div id="colorlib-main">
-<section class="ftco-section ftco-no-pt ftco-no-pb">
-<div class="container">
-<div class="row d-flex">
-<div class="col-xl-8 py-5 px-md-5">
-<div class="row pt-md-4">
-    {% for item in page_obj %}
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-xl-8 py-5 px-md-5">
+                    <div class="row pt-md-4">
+                        {% for item in page_obj %}
 
-<div class="col-md-12">
-<div class="blog-entry ftco-animate d-md-flex">
-    {% if item.photo %}
-<a href="{{ item.get_absolute_url }}" class="img img-2" style="background-image:url({{item.photo.url}})"></a>
-    {% endif %}
-<div class="text text-2 pl-md-4">
+                        <div class="col-md-12">
+                            <div class="blog-entry ftco-animate d-md-flex">
+                                {% if item.photo %}
+                                <a href="{{ item.get_absolute_url }}" class="img img-2" style="background-image:url({{item.photo.url}})"></a>
+                                {% endif %}
+                                <div class="text text-2 pl-md-4">
 
-<h3 class="mb-2"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></h3>
-<div class="meta-wrap">
-<p class="meta">
-<span><i class="icon-calendar mr-2"></i>{{ item.create_date}}</span>
-<span><a href="{% url 'category' item.category.pk %}"><i class="icon-folder-o mr-2"></i>{{item.category}}</a></span>
-<span><i class="icon-comment2 mr-2"></i>5 Comment</span>
-</p>
-</div>
-<p class="mb-4">{{item.content|truncatewords:50}}</p>
-<p><a href="{{item.get_absolute_url}}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
-       <hr>
-</div>
-</div>
-</div> <!--новость-->
+                                    <h3 class="mb-2"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></h3>
+                                    <div class="meta-wrap">
+                                        <p class="meta">
+                                            <span><i class="icon-calendar mr-2"></i>{{ item.create_date}}</span>
+                                            <span><a href="{% url 'category' item.category.pk %}"><i class="icon-folder-o mr-2"></i>{{item.category}}</a></span>
+                                            <span><i class="icon-comment2 mr-2"></i>{{ item.comment_set.count}}</span> <!-- здесь мы обращаемся через шаблонизатор
+к объекту модели news и через нее методом (нащвание модели_set) выводим ту информацию о комментах которые принадлежат
+данному посту-->
+                                        </p>
+                                    </div>
+                                    <p class="mb-4">{{item.content|truncatewords:50}}</p>
+                                    <p><a href="{{item.get_absolute_url}}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div> <!--новость-->
 
-    {% endfor %}
-</div>
-    <nav aria-label="...">
-            <ul class="pagination">
-                {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{page_obj.previous_page_number}}" >Previous</a>
-                </li>
-                {% endif %}
-                {%  for p in page_obj.paginator.page_range %}
-                {% if page_obj.number == p %}
-                <li class="page-item active">
-                    <a class="page-link" href="?page={{p}}">{{p}} <span class="sr-only">(current)</span></a>
-                </li>
-                {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{p}}">{{p}}</a>
-                </li>
-                {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
-</div>
-{% list_side %}
-</div>
-</div>
-</section>
+                        {% endfor %}
+                    </div>
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{page_obj.previous_page_number}}" >Previous</a>
+                            </li>
+                            {% endif %}
+                            {%  for p in page_obj.paginator.page_range %}
+                            {% if page_obj.number == p %}
+                            <li class="page-item active">
+                                <a class="page-link" href="?page={{p}}">{{p}} <span class="sr-only">(current)</span></a>
+                            </li>
+                            {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{p}}">{{p}}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                {% list_side %}
+
+            </div>
+        </div>
+    </section>
 </div>
 {% endblock %}
 {% endcache %}

@@ -21,12 +21,13 @@ import main.views
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
-import news.views
+
 from django.views.decorators.cache import cache_page
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('/', main.views.home, name='Home'),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('accounts/login/', LoginView.as_view(), name='login'),

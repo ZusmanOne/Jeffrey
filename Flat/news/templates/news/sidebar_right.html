@@ -11,7 +11,7 @@
 <h3 class="sidebar-heading">Категории</h3>
         {% for category in category_list %}
 <ul class="categories">
-<li><a href="{{category.get_absolute_url}}">{{category.title_category}} <span>(6)</span></a></li>
+<li><a href="{{category.get_absolute_url}}">{{category.title_category}} <span>{{category.news__count}}</span></a></li>
 </ul>
     {% endfor %}
 </div> <!--категории-->
@@ -48,7 +48,7 @@
 <div class="overlay"></div>
 <h3 class="mb-4 sidebar-heading">Newsletter</h3>
 <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia</p>
-<form action="{% url 'subscribe' %}" class="subscribe-form" method="post">
+<form action="{% url 'news' %}" class="subscribe-form" method="post">
 <div class="form-group">
     {% csrf_token %}
     {{form.as_p}}

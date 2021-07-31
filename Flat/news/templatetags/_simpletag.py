@@ -7,7 +7,8 @@
 from news.models import *
 from django import template
 from news.forms import SubscribeForm
-
+from django import forms
+from django.db.models import Count
 
 register = template.Library()
 from django.views.decorators.cache import cache_page
@@ -29,10 +30,11 @@ def list_category():
 
 @register.inclusion_tag('news/sidebar_right.html')
 def list_side():
-    category_list = Category.objects.all()
+    category_list = Category.objects.annotate(Count('news'))
     tag_list = Tag.objects.all()
     popular_post = News.objects.order_by('-visits')[:3]
+    form = SubscribeForm()
     context = {'category_list':category_list, 'tag_list': tag_list, 'popular_post':popular_post,
-               'form': SubscribeForm()
+               'form': form
                }
     return context

@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'news/images/image.0.png' %}">
 
-     <style>
+ <style>
 html {
     position: relative;
     min-height: 100%;
@@ -68,15 +68,15 @@ body {
 
 @media (min-width: 992px) {
   .sidenav {
-    position: fixed;
-    top: 60;
+    position: absolute;
+    top: 0;
     left: 0;
     width: 220px;
-    height: calc(100vh - 3.5rem);
-    margin-top: 51.5rem;
+    height: calc(100vh - 2.5rem);
+    margin-top: 4.3rem;
     background: #343A40;
     box-sizing: border-box;
-    border-top: 1px solid rgba(0, 0, 0, 3);
+    border-top: 0px solid rgba(0, 0, 0, 0.3);
     overflow-y: auto;
     font-family: Verdana;
 
@@ -91,6 +91,8 @@ body {
   }
 
 
+
+
   .content-wrapper {
     margin-left: 230px;
   }
@@ -98,6 +100,7 @@ body {
 
 }
 </style>
+
 
  <script>
   window.console = window.console || function(t) {};
@@ -119,27 +122,27 @@ body {
 <script id="rendered-js">
 $(document).ready(function () {
   $('.nav-link-collapse').on('click', function () {
-    $('.nav-link-collapse').not(this);
+    $('.nav-link-collapse').not(this).removeClass('nav-link-show');
     $(this).toggleClass('nav-link-show');
   });
 });
 //# sourceURL=pen.js
 
-
-
-    </script>
+</script>
 
 
 
 
-    {% include "inc/header.html" %}
+   {% include "inc/_side.html" %}
 
 
 <div id="colorlib-page">
-       {% include "inc/_side.html" %}
+
     {% block content %}
 
+
     {% endblock %}
+
 
 </div>
 
@@ -166,3 +169,25 @@ $(document).ready(function () {
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

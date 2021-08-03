@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="colorlib-main">
+  <div class="container">
+    <h1>Удаление поста</h1>
+    <p>Вы уверены что хотите удалить пост: {{ delete_news }}?</p>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form.as_p}}
+      <input type="submit" value="Да удалить." />
+    </form>
+  </div>
+</div>>
+
+{% endblock %}

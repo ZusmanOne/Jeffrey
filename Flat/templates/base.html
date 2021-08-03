@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Andrea - Free Bootstrap 4 Template by Colorlib</title>
+<title>JeffreysInfo</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
@@ -81,16 +81,12 @@ body {
     font-family: Verdana;
 
 
-
   }
 
   .navbar-expand-lg .sidenav {
     flex-direction: column;
 
-
   }
-
-
 
 
   .content-wrapper {
@@ -131,19 +127,36 @@ $(document).ready(function () {
 </script>
 
 
-
-
    {% include "inc/_side.html" %}
 
 
 <div id="colorlib-page">
+<div id="colorlib-main">
 
     {% block content %}
 
 
     {% endblock %}
 
+    {% if messages %}
 
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+    {% else %}
+    <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+    {% endif %}
+
+</div>
 </div>
 
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>

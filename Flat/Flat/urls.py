@@ -28,12 +28,12 @@ from django.views.decorators.cache import cache_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('/', main.views.home, name='Home'),
+    # path('', main.views.home, name='Home'),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
     path('header/', main.views.header, name='header'),
-    path('', include('main.urls')),
+    path('/', include('main.urls')),
     path('news/', include('news.urls')),
 
 ]

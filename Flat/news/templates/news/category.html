@@ -8,6 +8,7 @@
         <div class="container">
             <div class="row d-flex">
                 <div class="col-xl-8 py-5 px-md-5">
+                    <h2>Категория: {{ category }}</h2>
                     <div class="row pt-md-4">
                         {%for item in my_new %}
 
@@ -20,9 +21,9 @@
                                 <h3 class="mb-2"><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
                                 <div class="meta-wrap">
                                     <p class="meta">
-                                        <span>Dec 14, 2018</span>
+                                        <span>{{item.create_date}}</span>
                                         <span><a href="single.html">{{item.category}}</a></span>
-                                        <span>5 Comment</span>
+                                        <span><i class="icon-comment2 mr-2"></i>{{ item.comment_set.count}}</span
                                     </p>
                                 </div>
                                 <p class="mb-4">{{item.content| truncatewords:50}}.</p>

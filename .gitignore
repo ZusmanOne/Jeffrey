@@ -136,6 +136,7 @@ Myvenv/
 # Rope project settings
 .ropeproject
 
+Flat/.env
 # mkdocs documentation
 /site
 

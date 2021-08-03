@@ -35,7 +35,7 @@
                 <ul class="nav-second-level collapse" id="collapseSubItems0" >
                   <li class="nav-item">
                     <a class="nav-link" style="color:white;" href="/manual_search/">
-                      <span class="nav-link-text">Мануалы по поиску</span>
+                      <span class="nav-link-text">мануалы по поиску</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -277,18 +277,22 @@
                 </ul>
               </li>
       <li class="nav-item active" >
-                <a class="nav-link" style="color:white;" href="/news/">Новости   <span class="sr-only">(current)</span></a>
+                <a class="nav-link" style="color:white;" href="/news/"> <strong> Новости Jeffreys</strong>   <span class="sr-only">(current)</span></a>
               </li>
+      {% comment %}
       <li class="nav-item active" >
                 <a class="nav-link" style="color:white;" href="{% url 'register' %}">Регистрация   <span class="sr-only">(current)</span></a>
               </li>
+      {% endcomment %}
+          {% if request.user.is_staff %}
       <li class="nav-item active" >
-                <a class="nav-link" style="color:white;" href="{% url 'send-mail' %}">отправить письмо   <span class="sr-only">(current)</span></a>
+                <a class="nav-link" style="color:white;" href="{% url 'send-mail' %}">Отправить письмо   <span class="sr-only">(current)</span></a>
               </li>
+      {% endif %}
     </ul>
 
     <form action="{% url 'search' %}" method="get">
-        <input type="text" name="s" placeholder="Search...">
+        <input type="text" name="s" placeholder="Поиск по сайту...">
       <button type="submit" class="btn btn-success"><strong>Искать</strong></button>
     </form>
       {% if user.is_authenticated %}

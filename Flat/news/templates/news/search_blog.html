@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="colorlib-main">
+<div class="container">
+    {% for i in search_blog %}
+      <div class="row d-flex">
+            <div class="col-xl-8 py-5 px-md-5">
+                <div class="col-md-12">
+                    <div class="blog-entry ftco-animate d-md-flex fadeInUp ftco-animated">
+                        {% if i.photo %}
+                        <a href="single.html" class="img img-2" style="background-image:url('{{i.photo.url}}')"></a>
+                        {% endif %}
+                        <div class="text text-2 pl-md-4">
+                            <h3 class="mb-2"><a href="{{item.get_absolute_url }}">{{i.title}}</a></h3>
+                            <div class="meta-wrap">
+                                <p class="meta">
+                                    <span>{{i.created_at}}</span>
+                                    <span><a href="single.html">{{i.category}}</a></span>
+                                    <span>{{ i.comment_set.count}}</span>
+                                </p>
+                            </div>
+                            <p class="mb-4">{{i.content| truncatewords:50}}</p>
+                            <p><a href="{{i.get_absolute_url }}" class="btn-custom">Читать далее <span class="ion-ios-arrow-forward"></span></a></p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% empty %}
+<h2>По вашему запросу ничего не найдено...</h2>
+{% endfor %}
+</div>
+</div>
+
+{% endblock %}

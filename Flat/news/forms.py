@@ -5,6 +5,7 @@ import re
 from django.views.generic import ListView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class AddNews(forms.Form):
@@ -18,6 +19,7 @@ class AddNews(forms.Form):
     category = forms.ModelChoiceField(empty_label='Выберите категорию', label='Категория',
                                       queryset=Category.objects.all(),
                                       widget=forms.Select(attrs={"class": "form-control"}))
+    photo = forms.ImageField(label='Загрузите фото', required=False,)
 
 
 class AddCategory(forms.ModelForm):
@@ -47,17 +49,17 @@ class AddCategory(forms.ModelForm):
 #
 
 # кастомная форма для регистарции пользователя
-class UserRegistrForm(UserCreationForm):
-    username = forms.CharField(label='Введитя имя пользователя',
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password1 = forms.CharField(label='Введите пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    password2 = forms.CharField(label='Подвердите пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+# class UserRegistrForm(UserCreationForm):
+#     username = forms.CharField(label='Введитя имя пользователя',
+#                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+#     password1 = forms.CharField(label='Введите пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+#    password2 = forms.CharField(label='Подвердите пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
 # ФОРМА ДЛЯ О ПРАВКИ EMAIL ПИСЬМА
 class SendForm(forms.Form):
-    subject = forms.CharField(max_length=150)
-    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+    subject = forms.CharField(label='Тема письма', max_length=200)
+    message = forms.CharField(label='Текст сообщения', widget=forms.Textarea(attrs={'class': 'form-control'}))
 
 
 class SubscribeForm(forms.ModelForm):
@@ -74,7 +76,7 @@ class SubscribeForm(forms.ModelForm):
         for i in all_mail:
             if i.email == cleaned_mail:
                 print('ПОЧТА УЖЕ ЕСТЬ!!!!!!!!!!!!')
-                raise ValidationError('Такая почта уже существует')
+                raise ValueError('Такая почта уже подписана на рассылку')
         return cleaned_mail
 
 

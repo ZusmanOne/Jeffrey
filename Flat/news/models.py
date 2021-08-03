@@ -3,8 +3,6 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
 
-
-
 class News(models.Model):
     title = models.CharField(help_text='введите заголовок для новости', max_length=150)
     content = models.TextField(help_text='введите содержание')
@@ -19,7 +17,7 @@ class News(models.Model):
     visits = models.IntegerField(default=0, verbose_name='Число просмотров')
 
     def __str__(self):
-        return (self.title)
+        return self.title
 
     def get_absolute_url(self):
         return reverse_lazy('news_object', kwargs={'news_id': self.pk})
@@ -27,18 +25,17 @@ class News(models.Model):
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
-        ordering = ['-create_date']
+        ordering = ['-update_date']
 
 
 class Category(models.Model):
-    title_category = models.CharField( help_text='Введите название категории', max_length=100)
+    title_category = models.CharField( help_text='Введите название категории', max_length=100, unique=True)
 
     def __str__(self):
-        return(self.title_category)
+        return self.title_category
 
     def get_absolute_url(self):
         return reverse_lazy('category', kwargs={'category_id': self.pk})
-
 
     class Meta:
         verbose_name = 'Категория'
@@ -52,7 +49,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.title
 
-
     def get_absolute_url(self):
         return reverse_lazy('tag-news', kwargs={'slug':self.slug})
 
@@ -63,11 +59,15 @@ class Tag(models.Model):
 
 
 class Subscribe(models.Model):
-    email = models.EmailField(help_text='эл.почта')
+    email = models.EmailField(help_text='эл.почта', unique=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.email
+
+    class Meta:
+        verbose_name = 'Подписчик'
+        verbose_name_plural = 'Подписчики'
 
 
 class Comment(models.Model):

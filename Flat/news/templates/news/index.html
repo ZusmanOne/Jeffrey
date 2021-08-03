@@ -14,14 +14,12 @@
                 <div class="col-xl-8 py-5 px-md-5">
                     <div class="row pt-md-4">
                         {% for item in page_obj %}
-
                         <div class="col-md-12">
                             <div class="blog-entry ftco-animate d-md-flex">
                                 {% if item.photo %}
                                 <a href="{{ item.get_absolute_url }}" class="img img-2" style="background-image:url({{item.photo.url}})"></a>
                                 {% endif %}
                                 <div class="text text-2 pl-md-4">
-
                                     <h3 class="mb-2"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></h3>
                                     <div class="meta-wrap">
                                         <p class="meta">
@@ -32,8 +30,8 @@
 данному посту-->
                                         </p>
                                     </div>
-                                    <p class="mb-4">{{item.content|truncatewords:50}}</p>
-                                    <p><a href="{{item.get_absolute_url}}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+                                    <p  class="mb-4">{{ item.content|safe|truncatewords:10 }}</p>
+                                    <p><a href="{{item.get_absolute_url}}" class="btn-custom">Читать далее <span class="ion-ios-arrow-forward"></span></a></p>
                                     <hr>
                                 </div>
                             </div>

@@ -1,8 +1,7 @@
 from django.contrib import admin
 from .models import *
 from django.utils.safestring import mark_safe
-
-
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class NewsAdmin(admin.ModelAdmin):
@@ -13,6 +12,9 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = ('published', 'category', 'tag')
     save_on_top = True
     save_as = True
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorUploadingWidget},
+    }
 
     def get_photo(self,obj):
         if obj.photo:
@@ -24,6 +26,9 @@ class NewsAdmin(admin.ModelAdmin):
 
 class SubscribeAdmin(admin.ModelAdmin):
     list_display = ('email', 'date',)
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorUploadingWidget},
+    }
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -31,6 +36,9 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title_category')
     save_as = True
     save_on_top = True
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorUploadingWidget},
+    }
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -38,9 +46,16 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'slug')
     list_display_links = ('id', 'title')
     prepopulated_fields = {'slug': ('title',)}  # в поле slug дубируется название из tilte транслитом
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorUploadingWidget},
+    }
+
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ("user", 'post', 'create_comment')
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorUploadingWidget},
+    }
 
 
 admin.site.register(News, NewsAdmin)

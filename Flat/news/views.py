@@ -4,7 +4,8 @@ from .forms import *
 from django.views.generic import ListView, DeleteView, CreateView, UpdateView, DetailView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator
@@ -12,8 +13,10 @@ from django.db.models import F
 from django.dispatch import receiver
 from django.db.models.signals import pre_save,post_save
 from django.http import HttpResponse
+from django.db.models import Q
 
 
+@login_required()
 def index(request):  # так же здесь реалтзовано пагинация
     news_objects = News.objects.all()
     category_list = Category.objects.all()
@@ -29,7 +32,13 @@ def index(request):  # так же здесь реалтзовано пагин�
         form = SubscribeForm(request.POST)
         if form.is_valid():
             subscribe = form.save()
-            return redirect('news')
+            if subscribe:
+                messages.success(request, 'Вы успешно подписались на рассылку')
+                return redirect('news')
+            else:
+                messages.error(request,'Произошла ошибка')
+                return redirect('news')
+
     else:
         form = SubscribeForm()
     context = {
@@ -77,6 +86,7 @@ class NewsCategory(LoginRequiredMixin, ListView):  # показывает нов
 
 
 # @cache_page(30)  # кэширование для фунцкий
+@login_required()
 def news_object(request, news_id):
     single_news = get_object_or_404(News, pk=news_id)
     single_news.visits += 1
@@ -96,7 +106,7 @@ def news_object(request, news_id):
                   {'single_news': single_news, 'form': form, 'comment_all':comment_all})
 
 
-class TagNews(ListView): # будет отображать теги
+class TagNews(LoginRequiredMixin, ListView): # будет отображать теги
     model = News
     template_name = 'news/news_tag.html'
     context_object_name = 'news_tag'
@@ -111,9 +121,11 @@ class TagNews(ListView): # будет отображать теги
     #     return context
 
 
+@login_required()
+@permission_required('news.add_news')
 def add_news(request):  # контроллер для не связанной формы
     if request.method == 'POST':
-        form = AddNews(request.POST)
+        form = AddNews(request.POST, request.FILES)
         if form.is_valid():
             print(form.cleaned_data)
             news = News.objects.create(**form.cleaned_data)  # распковыввает слварь clened_data и присваивает
@@ -124,6 +136,8 @@ def add_news(request):  # контроллер для не связанной ф
     return render(request, 'news/add_news.html', {'form': form})
 
 
+@login_required()
+@permission_required('news.add_category')
 def add_category(request):  # контроллер для связанной формы
     if request.method == 'POST':
         form = AddCategory(request.POST)
@@ -154,47 +168,62 @@ def add_category(request):  # контроллер для связанной ф�
 #     context_object_name = 'single_news'
 
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin,DeleteView):
+    permission_required = 'news.delete_category'
     model = Category
     context_object_name = 'delete'
     success_url = reverse_lazy('news')
 
 
-class NewsUpdate(UpdateView):
+class NewsUpdate(LoginRequiredMixin,UpdateView):
+    permission_required = 'news.update_news'
     model = News
-    fields = '__all__'
+    fields = ['title','content', 'category', 'published', 'tag',  'photo']
     template_name = 'news/update_news.html'
     success_url = reverse_lazy('news')
 
 
+class NewsDelete(DeleteView):
+    permission_required = 'news.delete_news'
+    model = News
+    context_object_name = "delete_news"
+    success_url = reverse_lazy('news')
+    template_name = 'news/news_delete.html'
+
+
 # Регистрация пользователя
-def register(request):
-    if request.method == "POST":
-        form = UserRegistrForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('news')
-        else:
-            messages.error(request, 'Ошибка в региcтрации')
-    else:
-        form = UserRegistrForm()
-    return render(request, 'news/register.html', {'form': form})
+# def register(request):
+#     if request.method == "POST":
+#         form = UserRegistrForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('news')
+#         else:
+#             messages.error(request, 'Ошибка в региcтрации')
+#     else:
+#         form = UserRegistrForm()
+#     return render(request, 'news/register.html', {'form': form})
 
 
 # контроллер для отправки эл. письма
+@login_required()
 def send_message(request): #данная функция отправляет форму с электронным письмом
     if request.method == "POST":
         form = SendForm(request.POST)
         if form.is_valid():
             recipient_list = Subscribe.objects.all()
-            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['message'], 'bigmama93@mail.ru',
-                      recipient_list,  fail_silently=False)
-
-            if mail:
-                messages.success(request, 'письмо отправлено')
+            subject = form.cleaned_data['subject']
+            from_email = 'bigmama93@mail.ru'
+            text_content = form.cleaned_data['message']
+            msg = EmailMultiAlternatives(subject, text_content, from_email, bcc=recipient_list)
+            msg.send()
+            # mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['message'], 'bigmama93@mail.ru',
+            #           bcc= recipient_list,  fail_silently=False)
+            if msg:
+                messages.success(request, 'Письмо отправлено')
                 return redirect('send-mail')
             else:
-                messages.error(request,'письмо не отправлено')
+                messages.error(request,'Ошибка, письмо не отправлено')
                 return redirect('send-mail')
     else:
         form = SendForm()
@@ -207,7 +236,7 @@ def send_mail_post(request):
     from_email = 'bigmama93@mail.ru'
     to = Subscribe.objects.all()
     text_content = 'У нас для вас новости'
-    msg = EmailMultiAlternatives(subject,text_content,from_email, to)
+    msg = EmailMultiAlternatives(subject,text_content,from_email, bcc=to)
     msg.send()
 
 
@@ -227,3 +256,14 @@ def create_post(instance,  created, **kwargs):
 #     template_name = 'news/index.html' #выяснить как выводить ошибку в случае одинаковой почты
 #     success_url = reverse_lazy('news')
 
+
+
+class SearchBlog(ListView): #Поиск новостей в блоге по навзанию и содержанию
+    template_name = 'news/search_blog.html'
+    context_object_name = 'search_blog'
+
+    def get_queryset(self):
+        search_blog = News.objects.filter(Q(title__icontains=self.request.GET.get('b'))
+                                          | Q(content__icontains=self.request.GET.get('b')))
+
+        return (search_blog)

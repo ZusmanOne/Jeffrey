@@ -1,0 +1,206 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>JeffreysInfo</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'news/css/main.css'%}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'news/images/image.0.png' %}">
+
+ <style>
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    padding-top: 4.5rem;
+    margin-bottom: 4.5rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3.5rem;
+  line-height: 3.5rem;
+  background-color: #ccc;
+}
+
+.nav-link:hover {
+  transition: all 0.4s;
+  color: #80b3e5 !important;
+}
+
+
+
+.nav-link:focus {
+  color: orange !important;
+}
+
+.nav-link-collapse:after {
+  float: right;
+  content: '\f067';
+  font-family: 'FontAwesome';
+}
+
+.nav-link-show:after {
+  float: right;
+  content: '\f068';
+  font-family: 'FontAwesome';
+}
+
+.nav-item ul.nav-second-level {
+  padding-left: 0;
+}
+
+.nav-item ul.nav-second-level > .nav-item {
+  padding-left: 10px;
+}
+
+@media (min-width: 992px) {
+  .sidenav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: calc(100vh - 2.5rem);
+    margin-top: 4.3rem;
+    background: #343A40;
+    box-sizing: border-box;
+    border-top: 0px solid rgba(0, 0, 0, 0.3);
+    overflow-y: scroll;
+    font-family: Verdana;
+
+
+  }
+
+  .navbar-expand-lg .sidenav {
+    flex-direction: column;
+
+  }
+
+
+  .content-wrapper {
+    margin-left: 230px;
+  }
+
+
+}
+</style>
+
+
+ <script>
+  window.console = window.console || function(t) {};
+</script>
+
+
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+</head>
+
+<body>
+<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script id="rendered-js">
+$(document).ready(function () {
+  $('.nav-link-collapse').on('click', function () {
+    $('.nav-link-collapse').not(this).removeClass('nav-link-show');
+    $(this).toggleClass('nav-link-show');
+  });
+});
+//# sourceURL=pen.js
+
+</script>
+
+
+   {% include "inc/_side.html" %}
+
+
+<div id="colorlib-page">
+<div id="colorlib-main">
+
+    {% block content %}
+
+
+    {% endblock %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+    {% else %}
+    <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+    {% endif %}
+
+</div>
+</div>
+
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+<script src="{% static 'news/js/jquery-migrate-3.0.1.min.js+popper.min.js+bootstrap.min.js.pagespeed.jc.ufA-InWYhU.js'%}"></script><script>eval(mod_pagespeed_j9z0BOW3Xo);</script>
+<script src="{% static 'news/js/jquery.easing.1.3.js+jquery.waypoints.min.js+jquery.stellar.min.js+owl.carousel.min.js.pagespeed.jc.7Uf8nwPPt3.js'%}"></script><script>eval(mod_pagespeed_a9in6ca9LP);</script>
+<script>eval(mod_pagespeed_E5Rl_eUdra);</script>
+<script>eval(mod_pagespeed_J7fR9gg3IV);</script>
+<script>eval(mod_pagespeed_JGC9XV$UWo);</script>
+<script src="{% static 'news/js/jquery.magnific-popup.min.js+aos.js+jquery.animateNumber.min.js+scrollax.min.js+google-map.js+main.js.pagespeed.jc.noK85cOv9x.js'%}"></script><script>eval(mod_pagespeed_9FDixMCPbL);</script>
+<script>eval(mod_pagespeed_cWDp1F0K9O);</script>
+<script>eval(mod_pagespeed_tBed9FYmsP);</script>
+<script>eval(mod_pagespeed_xipmmYMCNr);</script>
+<script>eval(mod_pagespeed_6pY$MsZg3C);</script>
+
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

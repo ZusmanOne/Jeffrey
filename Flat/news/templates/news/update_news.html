@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="colorlib-main">
+
+<div class="container">
+<div class="row d-flex">
+<form action="" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary" > Обновить Новость</button>
+
+</form>
+</div>
+</div>
+</div>
+{% endblock  %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div id="colorlib-main">
+<div class="container">
+<form  method="post" >
+
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary" > отправить письмо</button>
+
+</form>
+
+</form>
+</div>
+</div>
+{% endblock  %}

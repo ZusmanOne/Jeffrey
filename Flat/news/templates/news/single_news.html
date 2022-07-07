@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load _simpletag %}
+
+{% block content %}
+<title>Новости</title>
+
+<div id="colorlib-main">
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-lg-8 px-md-5 py-5">
+
+                    <h1 class="mb-3"> <strong>{{single_news.title}} </strong></h1>
+                    {% if single_news.photo %}
+                    <p>
+                        <img src="{{ single_news.photo.url }}" alt="" class="img-fluid" data-pagespeed-url-hash="3951709250" width="350"
+                             onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                    </p>
+                    {% endif %}
+
+                    <p style="width:800px"  class="card-text">{{ single_news.content | safe }}</p>
+
+                    <div class="tag-widget post-tag-container mb-5 mt-5">
+                        <div class="tagcloud">
+                            {% for tag in single_news.tag.all %}
+                            <a href="{{tag.get_absolute_url}}" class="tag-cloud-link">{{tag.title}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if request.user.is_staff %}
+                    <div class="form-group mb-5 mt-5">
+                        <div class="forms">
+                            <a href="{% url 'update_news' single_news.pk  %}" class="btn py-3 px-4 btn-primary">Редактировать</a>
+                            <a href="{% url 'delete-news' single_news.pk %}" class="btn py-3 px-4 btn-primary">Удалить</a>
+
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% comment %}
+                    <div class="about-author d-flex p-4 bg-light">
+                        <div class="bio mr-5">
+                            <img src="images/xperson_1.jpg.pagespeed.ic.P4pHl6glbj.jpg" alt="Image placeholder" class="img-fluid mb-4" data-pagespeed-url-hash="2239758388" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                        </div>
+                        <div class="desc">
+                            <h3>George Washington</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+                        </div>
+                    </div> <!-- тэг для автора поста-->
+                    {% endcomment %}
+                    <div class="pt-5 mt-5">
+
+                        <h3 class="mb-5 font-weight-bold"> Коментариев: {{comment_all.count}}</h3>
+
+                        {% for comment in comment_all %}
+                        <ul class="comment-list">
+                            <li class="comment">
+                                <div class="vcard bio">
+                                    {% comment %}
+                                    <img src="images/xperson_1.jpg.pagespeed.ic.P4pHl6glbj.jpg" alt="Image placeholder" data-pagespeed-url-hash="2239758388" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                                    {% endcomment %}
+                                </div>
+                                <div class="comment-body">
+                                    <h3>{{comment.user}}</h3>
+                                    <div class="meta">{{comment.create_comment}}</div>
+                                    <p>{{comment.body }}</p>
+                                    {% comment %}
+                                    <p><a href="single.html#" class="reply">Reply</a></p>
+                                    {% endcomment %}
+                                </div>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                        {% if user.is_active %}
+                        <form action="#" method="post" class="p-3 p-md-5 bg-light">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="Отправить" class="btn py-3 px-4 btn-primary">
+                            {% else %}
+                            <p>Авторизуйтесь что бы оставлять комментарии</a></p>
+                            {% endif %}
+
+                        </form>
+                    </div>
+                </div>  <!-- тэг для раздела комментариев-->
+                {% list_side %}
+
+            </div>
+
+        </div>
+</div>
+</section>
+</div>
+
+
+
+{% comment %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-9">
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Категория: <a href="{% url 'category' single_news.category.pk %}">{{ single_news.category }}</a>
+                </div>
+                <br>
+                {% if single_news.tag.exists %}
+                <span>
+                    Теги:
+                    {% for tag in single_news.tag.all %}
+                    <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                    {% endfor %}
+                </span>
+                {% endif %}
+                <br>
+                <div class="card-header">
+                    Количество просмотров: {{ single_news.visits }}
+                </div>
+                {% if single_news.photo %}
+                <img src="{{ single_news.photo.url }}" alt="" width="350" class="mr-3">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ single_news.title }}</h5>
+                    <p class="card-text">{{ single_news.content }}</p>
+                    <a href="{% url 'update_news' single_news.pk %}" class="btn btn-primary">Обновить</a>
+
+                </div>
+                <div class="card-footer text-muted">
+                    {{ single_news.create_date}}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="list-group">
+                {% my_tag as list_categories %}
+                {% for ite in list_categories %}
+                <a href="{{ ite.get_absolute_url }}" class="list-group-item list-group-item-action">{{ ite.title_category }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endcomment %}
+{% endblock %}

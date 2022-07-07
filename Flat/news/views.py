@@ -16,7 +16,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 
 
-@login_required()
+
 def index(request):  # так же здесь реалтзовано пагинация
     news_objects = News.objects.all()
     category_list = Category.objects.all()
@@ -81,7 +81,7 @@ class NewsCategory(LoginRequiredMixin, ListView):  # показывает нов
     def get_queryset(self):
         category_news = News.objects.filter(category_id=self.kwargs['category_id']).select_related('category')
         '''метод select_related применяется для того что бы сократить количество sql запросов к связаной табоицу в модели News
-        select_related применяется для Foreign Key для ManytpMany применятеся prefeatch'''
+        select_related применяется для Foreign Key для MaytpMany применятеся prefeatch'''
         return category_news
 
 
@@ -97,7 +97,7 @@ def news_object(request, news_id):
         if form.is_valid():
             form = form.save(commit=False) # озгначает что пока модель не сохранять
             form.user = request.user #заполняется поле юзер из реквеста
-            form.post = single_news # комментарий отобразится у той статьи которая открыта на сайте
+            form.post = single_news # комментарий отобразится у той статьи которая открыта на сайте(взятому по ключу)
             form.save()
             return redirect(news_object, news_id)
     else:
@@ -213,7 +213,7 @@ def send_message(request): #данная функция отправляет ф�
         if form.is_valid():
             recipient_list = Subscribe.objects.all()
             subject = form.cleaned_data['subject']
-            from_email = 'bigmama93@mail.ru'
+            from_email = "jeffreyscoffee@gmail.com"
             text_content = form.cleaned_data['message']
             msg = EmailMultiAlternatives(subject, text_content, from_email, bcc=recipient_list)
             msg.send()
@@ -233,9 +233,9 @@ def send_message(request): #данная функция отправляет ф�
 
 def send_mail_post(request):
     subject = 'Новости Jeffreys'
-    from_email = 'bigmama93@mail.ru'
+    from_email = "jeffreyscoffee@gmail.com"
     to = Subscribe.objects.all()
-    text_content = 'У нас для вас новости'
+    text_content = 'У нас для вас новости https://jeffreysinfo.ru/news/'
     msg = EmailMultiAlternatives(subject,text_content,from_email, bcc=to)
     msg.send()
 
@@ -257,7 +257,6 @@ def create_post(instance,  created, **kwargs):
 #     success_url = reverse_lazy('news')
 
 
-
 class SearchBlog(ListView): #Поиск новостей в блоге по навзанию и содержанию
     template_name = 'news/search_blog.html'
     context_object_name = 'search_blog'
@@ -265,5 +264,4 @@ class SearchBlog(ListView): #Поиск новостей в блоге по на
     def get_queryset(self):
         search_blog = News.objects.filter(Q(title__icontains=self.request.GET.get('b'))
                                           | Q(content__icontains=self.request.GET.get('b')))
-
         return (search_blog)

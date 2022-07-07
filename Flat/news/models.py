@@ -13,7 +13,7 @@ class News(models.Model):
     file = models.FileField(help_text='добавьте файл(если требуется)', blank=True, upload_to='file/%Y/%m/%d')
     published = models.BooleanField(help_text='публиковать новость?', default=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
-    tag = models.ManyToManyField('Tag', null=True, blank=True )
+    tag = models.ManyToManyField('Tag',  blank=True )
     visits = models.IntegerField(default=0, verbose_name='Число просмотров')
 
     def __str__(self):
